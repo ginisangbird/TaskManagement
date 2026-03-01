@@ -1,0 +1,39 @@
+<!-- tasks/templates/tasks/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Task Management</h1>
+    <p>Total Tasks: {{ tasks|length }}</p>
+
+    <!-- Add Task Form -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="task" placeholder="Enter task" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Task List -->
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task }}
+                <a href="/delete/{{ forloop.counter0 }}/">Delete</a>
+            </li>
+        {% empty %}
+            <li>No tasks yet</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+</body>
+</html>
